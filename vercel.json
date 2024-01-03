@@ -21,5 +21,21 @@
         }
 
     ]
+	
+	"functions": {
+	
+    	"api/test.js": {
+	
+      	"maxDuration": 30 // This function can run for a maximum of 30 seconds
+	
+    },
+
+    "api/*.js": {
+		
+      "maxDuration": 30 // This function can run for a maximum of 30 seconds
+		
+    }
+
+  }
 
 }
