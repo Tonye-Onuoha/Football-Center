@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="flexbox" class="container mb-3">
+	<h2 class="text-center mt-3" style="font-family: 'Staatliches', cursive;">Europes Top Five Leagues</h2>
+	<div style="min-height: 400px;display: flex;justify-content: center;align-items: center;">
+	<div class="flexbox-container">
+    {% for league in leagues %}
+    <div class="flexboxitems" onload="order()">
+      <a href="{% url 'league-details' league.id %}"><img src="{{league.logo.url}}" alt="{{league.name}}" title="{{league.name}}"></a>
+    </div>
+    {% endfor %}
+  	</div>
+	</div>
+</div>
+{% endblock content %}

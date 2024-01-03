@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-1" style="font-family:'Noto Sans',sans-serif;">
+  <div class="user-profile">
+    <div class="user-image p-2" style="height:100%;max-height:100%;display:flex;justify-content:center;">
+      <img src="{{ author.profile.image.url }}" alt="{{ author }}'s avi" class="rounded-circle" style="width: 200px;height: 200px; max-width:100%;max-height:100%;object-fit: cover; outline: 3px solid #D4F1F4;">
+    </div>
+    <div class="user-info border rounded p-2">
+	  {% if author.profile.bio %}
+      <div class="pt-2">{{ author.profile.bio }}</div>
+	  {% else %}
+	  <p class="text-secondary pt-2">User info not available</p>
+	  {% endif %}
+    </div>
+  </div>
+  <div class="user-tabs mt-3" style="display:flex;justify-content:space-between;">
+    <button id="defaultTab" type="button"  class="tablinks activetab border rounded" onclick="opentab(event,'Posts')" name="button">Posts</button>
+    <button type="button" class="tablinks border rounded" onclick="opentab(event,'Replies')" name="button">Replies</button>
+    <button type="button" class="tablinks border rounded" onclick="opentab(event,'Quotes')" name="button">Quotes</button>
+  </div>
+  {% if author_posts %}
+  <hr>
+  {% endif %}
+  <div id="Posts" class="usertabcontent p-2 mt-2">
+    {% for post in author_posts %}
+    <div class="border rounded p-4 mb-3" style="max-width:60%;margin:0 auto;line-height:2.0">
+		<div class="" style="display:flex;justify-content:space-between;">
+        <a href="{% url 'author-profile' post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.author }}</span></a>
+        <span style="font-weight:normal;">{{ post.date|date:"M/d/Y"}} {{ post.date|time:"H:i" }}</span>
+      </div>
+      <hr>
+      <a href="{% url 'post-replies' post.id %}" class="text-decoration-none text-reset" style="display:block;line-height:2.0">
+        <div class="original-post">
+          {{ post.post }}
+        </div>
+      </a>
+      <hr>
+    </div>
+	{% empty %}
+    <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    <p>You don't have any posts yet.</p>
+	</div>
+    {% endfor %}
+  </div>
+  <div id="Replies" class="usertabcontent p-2 mt-2">
+    {% for reply in author_replies %}
+    <div class="border rounded p-4 mb-3" style="max-width:60%;margin:0 auto;line-height:2.0">
+      <div class="" style="display:flex;justify-content:space-between;">
+        <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
+      <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+      </div>
+      <hr>
+      <a href="{% url 'reply-detail' reply.id %}" class="text-decoration-none text-reset" style="display: block;">
+        {{ reply.reply }}
+      </a>
+	  <hr>
+    </div>
+	{% empty %}
+    <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    <p>You don't have any replies yet.</p>
+	</div>
+    {% endfor %}
+  </div>
+  <div id="Quotes" class="usertabcontent p-2 mt-2">
+    {% for quote in author_quotes %}
+    <div class="border rounded p-4 mt-2 mb-3" style="max-width:60%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
+      <div class="quote-body">
+      <div class="quote-author" style="display:flex;justify-content:space-between;">
+		<a href="{% url 'author-profile' quote.user.id %}" class="text-decoration-none text-reset"><img src="{{ quote.user.profile.image.url }}" alt="{{ quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ quote.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.user }}</span></a>
+        <span style="font-weight:normal;">{{ quote.date|date:"M d, Y"}} {{ quote.date|time:"H:i" }}</span>
+      </div>
+      <hr>
+      <div class="original-quote mb-2" style="line-height: 2.0;">
+        {{ quote.quote }}
+      </div>
+    </div>
+    <div class="post-body border rounded p-4">
+		<div class="" style="display:flex;justify-content:space-between;">
+          <a href="{% url 'author-profile' quote.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ quote.post.author.profile.image.url }}" alt="{{ quote.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ quote.post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.post.author }}</span></a>
+          <span style="font-weight:normal;">{{ quote.post.date|date:"M d, Y"}} {{ quote.post.date|time:"H:i" }}</span>
+      </div>
+      <hr>
+	  <a href="{% url 'post-replies' quote.post.id %}" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
+          {{ quote.post.post }}
+      </a>
+    </div>
+    </div>
+	{% empty %}
+    <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    <p>You don't have any quotes yet.</p>
+	</div>
+    {% endfor %}
+  </div>
+  <script type="text/javascript">
+  document.getElementById("defaultTab").click();
+  </script>
+</div>
+{% endblock content %}

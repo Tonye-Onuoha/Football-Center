@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-3 mt-2 mb-2" style="font-family:'Noto Sans',sans-serif;line-height:2.0">
+  	<div class="border rounded p-4" style="max-width:70%;margin:0 auto;">
+	<div style="display:flex;justify-content:space-between;">
+	<a href="{% url 'author-profile' post.author.id %}" class="text-reset text-decoration-none"><img src="{{ post.author.profile.image.url }}" alt="{{ reply.comment.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.author }}</span></a>
+    <span style="font-weight:normal;">{{ post.date|date:"M d, Y"}} {{ post.date|time:"H:i" }}</span>
+	</div>
+    <hr>
+    <div class="original-post">
+      {{ post.post }}
+    </div>
+    <hr>
+    <div class="quote-reply-buttons" style="display:flex;justify-content:space-between;">
+      <a class="text-decoration-none" href="{% url 'quotes-view' post.id %}"><strong>Quotes</strong></a>
+      <span>
+        <a href="{% url 'quote-post' post.id %}" title="Quote this post"><i class="bi bi-chat-quote"></i></a>
+        <a href="{% url 'reply-post' post.id %}" title="Reply this post"><i class="bi bi-reply ms-2"></i></a>
+      </span>
+    </div>
+  	</div>
+	{% if post.replies_set.all.count > 0 %}
+  	<hr>
+	{% endif %}
+	{% if post_replies %}
+  	{% for reply in post_replies %}
+	<div class="border rounded p-4 mt-3" style="max-width:70%;margin:0 auto;">
+    <div class="" style="display:flex;justify-content:space-between;">
+      <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
+      <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+    </div>
+    <hr>
+    <div class="reply">
+      {{ reply.reply }}
+    </div>
+	{% if reply.user == request.user %}
+	<hr>
+	<div class="text-end">
+		<a href="{% url 'reply-delete' reply.id %}"><i class="bi bi-trash3"></i></a>
+	</div>
+	{% endif %}
+  	</div>
+  	{% endfor %}
+	{% else %}
+	<hr>
+	<div class="border rounded p-4 mb-0" style="max-width:70%;min-height: 150px; margin:0 auto;display: flex;justify-content: center;align-items: center;">
+		<div>This post has no replies.</div>
+  	</div>
+	{% endif %}
+</div>
+{% endblock content %}

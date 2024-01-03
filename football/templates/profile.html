@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container p-2" style="font-family:'Noto Sans',sans-serif;">
+  <div class="profile-container">
+    <div class="profile-image border rounded p-2" style="height:100%;max-height:100%;display:flex;justify-content:center;align-items:center;">
+      <img src="{{ user.profile.image.url }}" alt="{{ user }} profile image" class="rounded-circle" style="width: 200px;height: 200px;max-width:100%;max-height:100%;object-fit: cover; outline: 2px solid #5CFF5C;">
+    </div>
+    <div class="profile-info border rounded">
+      <h3 class="text-center mt-2" style="color: #5CFF5C;">Profile Information</h3>
+      <div class="about p-2">
+        {% if user.profile.bio %}
+        {{ user.profile.bio }}
+		{% else %}
+		<p style="color: silver;font-style: oblique;">Please update your profile to tell us something about yourself here.</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="profile-form p-3 mt-2 bg-dark">
+      <h2 style="color:#5CFF5C">Update Profile</h2>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{profile_form|crispy}}
+        <input type="submit" class="btn btn-outline-success" value="Update">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

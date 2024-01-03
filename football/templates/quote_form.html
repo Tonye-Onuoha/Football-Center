@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container p-3" style="font-family:'Noto Sans',sans-serif;">
+  <div style="min-height: 400px;margin: 0 auto;">
+  <div class="quote-form">
+    <form class="" action="" method="POST" style="max-width:70%;margin:0 auto;">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn text-white" style="background-color: limegreen;" value="Send">
+    </form>
+  </div>
+  {% if edit is not True %}
+  <div class="border rounded p-4 mt-2 mb-3" style="max-width:70%;margin:0 auto;line-height: 2.3;">
+    <div class="" style="display:flex;justify-content:space-between;">
+      <a href="{% url 'author-profile' post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.author }}</span></a>
+      <span style="font-weight:normal;">{{ post.date|date:"M d, Y"}} {{ post.date|time:"H:i" }}</span>
+    </div>
+    <hr>
+    <div class="comment">
+      {{ post.post }}
+    </div>
+	<hr>
+  </div>
+  {% endif %}
+  </div>
+</div>
+{% endblock content %}

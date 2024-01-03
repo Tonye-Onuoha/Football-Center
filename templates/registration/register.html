@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <!--Registration form-->
+<div class="container-fluid registration p-2">
+  <form class="registerform" action="" method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend class="display-5 text-white" style="text-shadow: 2px 2px 5px gray;">Sign Up</legend>
+      <label for="username">Username</label>
+      {{form.username}}
+      {{form.username.errors}}
+      <label for="email">Email</label>
+      {{form.email}}
+      {{form.email.errors}}
+      <label for="firstname">First name</label>
+      {{form.first_name}}
+      {{form.first_name.errors}}
+      <label for="lastname">Last name</label>
+      {{form.last_name}}
+      {{form.last_name.errors}}
+      <label for="password1">Password</label>
+      {{form.password1}}
+      {{form.password1.errors}}
+      <label for="password2">Password confirmation</label>
+      {{form.password2}}
+      <div class="bg-dark text-danger rounded mt-2" style="font-family: 'Trebuchet MS', sans-serif;" >
+      {{form.password2.errors}}
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      <input type="reset" class="btn btn-secondary mt-3" value="Reset">
+    </fieldset>
+  </form>
+  <p style="width:70%;margin-left:15%;font-family:'Noto Sans', sans-serif;" class="bg-secondary p-1 mt-3 mb-3 text-center text-white rounded">Already have and account ? Sign in here: <a style="text-decoration:underline;" class="btn btn-success btn-sm" href="{% url 'login' %}">Sign In</a></p>
+</div>
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="font-family: 'Noto Sans', sans-serif;">
+<h1 class="text-center mt-3" style="font-family: 'Staatliches', cursive;font-size:32px;"> Europes Top Clubs </h1>
+  <div class="premier-league mt-5">
+    <h2>Premier League</h2>
+      <div class="row mt-3">
+        {% for team in teams %}
+        {% if team.league.name == 'Premier League' %}
+        <div class="col-3" style="max-height:inherit;">
+          <a href="{{team.get_absolute_url}}"><img class="img-fluid" src="{{team.logo.url}}" alt="{{team.name}}" title="{{team.name}}" style="max-height:50%;display:block;margin:0 auto;"></a>
+          <p class="text-center mt-2" style="font-weight:bold;">{{team.name}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+  <div class="la-liga mt-5">
+    <h2>La Liga</h2>
+      <div class="row mt-3">
+        {% for team in teams %}
+        {% if team.league.name == 'La Liga' %}
+        <div class="col-3" style="max-height:inherit;">
+          <a href="{{team.get_absolute_url}}"><img class="img-fluid" src="{{team.logo.url}}" alt="{{team.name}}" title="{{team.name}}" style="max-height:50%;display:block;margin:0 auto;"></a>
+          <p class="text-center mt-2" style="font-weight:bold;">{{team.name}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+  <div class="serie-a mt-5">
+    <h2>Serie A</h2>
+      <div class="row mt-3">
+        {% for team in teams %}
+        {% if team.league.name == 'Serie A' %}
+        <div class="col-3" style="max-height:inherit;">
+          <a href="{{team.get_absolute_url}}"><img class="img-fluid" src="{{team.logo.url}}" alt="{{team.name}}" title="{{team.name}}" style="max-height:50%;display:block;margin:0 auto;"></a>
+          <p class="text-center mt-2" style="font-weight:bold;">{{team.name}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+  <div class="ligue-1 mt-5">
+    <h2>Ligue 1</h2>
+      <div class="row mt-3">
+        {% for team in teams %}
+        {% if team.league.name == 'Ligue 1' %}
+        <div class="col-3" style="max-height:inherit;">
+          <a href="{{team.get_absolute_url}}"><img class="img-fluid" src="{{team.logo.url}}" alt="{{team.name}}" title="{{team.name}}" style="max-height:50%;display:block;margin:0 auto;"></a>
+          <p class="text-center mt-2" style="font-weight:bold;">{{team.name}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+  <div class="bundesliga mt-5">
+    <h2>Bundesliga</h2>
+      <div class="row mt-3">
+        {% for team in teams %}
+        {% if team.league.name == 'Bundesliga' %}
+        <div class="col-3" style="max-height:inherit;">
+          <a href="{{team.get_absolute_url}}"><img class="img-fluid" src="{{team.logo.url}}" alt="{{team.name}}" title="{{team.name}}" style="max-height:50%;display:block;margin:0 auto;"></a>
+          <p class="text-center mt-2" style="font-weight:bold;">{{team.name}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% endblock content %}

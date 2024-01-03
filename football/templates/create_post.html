@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container" style="min-height: 400px;font-family:'Noto Sans', sans-serif;">
+  <h2 class="mt-5 text-primary"> New post +</h2>
+  <form class="mt-1" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Post" class="btn btn-primary">
+  </form>
+</div>
+
+{% endblock content %}

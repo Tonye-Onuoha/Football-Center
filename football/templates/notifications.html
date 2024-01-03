@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-4 mt-2 mb-2" style="font-family: 'Noto Sans', sans-serif;">
+    {% if all %}
+    <h2 class="text-center mt-2 mb-2">All notifications</h2>
+    {% elif notifications.count > 1 %}
+    <h2 class="text-center mt-2 mb-2">{{ notifications.count }}  new notifications !!!</h2>
+	{% else %}
+	<h2 class="text-center mt-2 mb-2">{{ notifications.count }}  new notification !!!</h2>
+    {% endif %}
+	<hr>
+    <div class="p-3" style="display: flex;justify-content: center;align-items: center;min-height: 400px;">
+        <div style="width: 80%;">
+            {% for notification in notifications %}
+            {% if notification.reply and notification.reply.comment %}
+			<a href="{{ notification.link }}" style="display: block;" class="notification border rounded text-decoration-none">
+				<div class="p-4" style="display: flex;justify-content: space-between">
+				<img src="{{ notification.reply.user.profile.image.url }}" alt="{{ notification.reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;">
+				<span>@<b>{{ notification.reply.user }}</b> replied to your post</span>
+				<span style="font-weight:normal;">{{ notification.reply.date|date:"M/d/Y"}} {{ notification.reply.date|time:"H:i" }}</span>
+            	</div>
+			</a>
+			{% elif notification.reply and notification.reply.quote %}
+			<a href="{{ notification.link }}" style="display: block;" class="notification border rounded text-decoration-none">
+				<div class="p-4" style="display: flex;justify-content: space-between">
+				<img src="{{ notification.reply.user.profile.image.url }}" alt="{{ notification.reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;">
+				<span>@<b>{{ notification.reply.user }}</b> replied to your quote</span>
+				<span style="font-weight:normal;">{{ notification.reply.date|date:"M/d/Y"}} {{ notification.reply.date|time:"H:i" }}</span>
+            	</div>
+			</a>
+            {% else %}
+            <a href="{{ notification.link }}" style="display: block;" class="notification border rounded text-decoration-none">
+				<div class="p-4" style="display: flex;justify-content: space-between">
+				<img src="{{ notification.quote.user.profile.image.url }}" alt="{{ notification.quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;">
+				<span>@<b>{{ notification.quote.user }}</b> quoted your post</span>
+				<span style="font-weight:normal;">{{ notification.quote.date|date:"M/d/Y"}} {{ notification.quote.date|time:"H:i" }}</span>
+            	</div>
+			</a>
+            {% endif %}
+            {% empty %}
+            <div class="text-center p-2 notification">
+                You have no notifications available.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

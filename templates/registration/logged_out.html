@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container border rounded mt-4 mb-4 logout" style="font-family: 'Noto Sans', sans-serif;">
+  <div class="mt-2 mb-2" style="display:flex;justify-content: center;align-items: center; min-height: 400px;">
+	  <p class="text-center w-75" style="font-family: 'Noto Sans', sans-serif;"> Successfully logged out! Click here to <a href="{% url 'login'%}">login </a>again or here to <a href="{% url 'register' %}">register.</a></p>
+  </div>
+</div>
+{% endblock content %}

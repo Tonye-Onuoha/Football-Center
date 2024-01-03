@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 align="center">Welcome {{user.username}}</h1>
+<div>
+  <img src="{{user.profile.image.url}}" alt="profile picture">
+</div>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{user_form.as_p}}
+  {{profile_form.as_p}}
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock content %}

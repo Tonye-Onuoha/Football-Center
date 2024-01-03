@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container login border rounded mt-2 mb-2 p-3" style="font-family:'Noto Sans',sans-serif;">
+  <h6 class="display-6 mt-3" style="font-family: 'Staatliches', cursive; font-variant:small-caps;font-weight:100;">SIGN INTO YOUR ACCOUNT</h6>
+  <div class="container border rounded">
+    <form class="mt-5" action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{form|crispy}}
+      <input type="reset" class="btn btn-dark text-light" value="Reset">
+	  <br>
+	  <br>
+	  <p>Forgotten your password ? <a href="{% url 'password_reset' %}">Reset Password</a></p>
+      <div class="login-button mt-5">
+        <input type="submit" class="btn mb-5 text-white" style="background-color: limegreen;" value="Login">
+      </div>
+    </form>
+  </div>
+  <p class="mt-5">If you don't have an account already, you can create one by clicking the button below.</p>
+  <p><a class="btn btn-primary" href="{% url 'register' %}" style="width:25%;">Sign Up</a></p>
+</div>
+
+{% endblock content %}

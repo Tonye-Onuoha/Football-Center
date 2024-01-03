@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3 mb-3" style="font-family: 'Noto Sans', sans-serif;">
+  <h2 class="text-center text-uppercase mb-4" style="font-variant: normal;color: gray;font-weight: 500;">{{ league }}</h2>
+  <div class="parent">
+    <div class="logo">
+      <img src="{{league.logo.url}}" alt="{{league.name}}">
+    </div>
+    <div class="description">
+      {{league.description}}
+    </div>
+  </div>
+</div>
+{% endblock content %}
