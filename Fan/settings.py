@@ -24,12 +24,12 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('FOOTBALL_KEY')
+SECRET_KEY = 'd4b4sx&ev5a4fecth@r0pm=&y6!l)txr91s_)*s)ran9@p=_2i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'football_DB',
-		'USER': os.environ.get('USER'),
-		'PASSWORD': os.environ.get('PASSWORD'),
+		'USER': 'tonyeonuoha',
+		'PASSWORD': 'HUGOBOSS77',
 		'HOST': 'football-app-database.c5sk0gsccpf7.eu-north-1.rds.amazonaws.com',
 		'PORT': '5432'
     }
@@ -170,11 +170,11 @@ REST_FRAMEWORK = {
 }
 
 # AWS CONFIGURATIONS
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = 'AKIA2DHMC2TOIZ5ABQRX'
 
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = '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'
 
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_BUCKET_NAME = 'football-center-bucket'
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
