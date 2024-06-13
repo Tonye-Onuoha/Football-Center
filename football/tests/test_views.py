@@ -1,6 +1,6 @@
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from django.contrib.auth.models import User
-from football.models import Comments,Replies,Quotes,Notifications
+from football.models import Comments,Replies,Quotes,Notification
 from django.urls import reverse
 
 # Create your tests here.
@@ -43,7 +43,7 @@ class HomeViewPostTest(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertTrue('user' in response.context)
         self.assertEqual(str(response.context['user']),'john')
-        self.assertTemplateUsed(response.'home.html')
+        self.assertTemplateUsed(response,'home.html')
         self.assertContains(response,'This is a new post')
         # Check if posts exist
         self.assertTrue('posts' in response.context)
@@ -196,7 +196,7 @@ class DeletePostViewTest(TestCase):
         self.assertEqual(response.status_code,302)
         self.assertRedirects(response,reverse('home'))
         
-def class ReplyPostViewTest(TestCase):
+class ReplyPostViewTest(TestCase):
     def setUp(self):
         user_1 = User.objects.create_user(username='john',email='johndoe@gmail.com',password='zGXn9dk143')
         user_2 = User.objects.create_user(username='jane',email='janedoe@gmail.com',password='sBQl6fk085')
@@ -221,7 +221,7 @@ def class ReplyPostViewTest(TestCase):
         self.assertRedirects(response,reverse('home'))
         
         
-def class QuotePostViewTest(TestCase):
+class QuotePostViewTest(TestCase):
     def setUp(self):
         user_1 = User.objects.create_user(username='john',email='johndoe@gmail.com',password='zGXn9dk143')
         user_2 = User.objects.create_user(username='jane',email='janedoe@gmail.com',password='sBQl6fk085')
@@ -247,7 +247,7 @@ def class QuotePostViewTest(TestCase):
         
 class NotificationsViewTest(TestCase):
     @classmethod
-    setupTestData(cls):
+    def setUpTestData(cls):
         user_1 = User.objects.create_user(username='john',email='johndoe@gmail.com',password='zGXn9dk143')
         user_2 = User.objects.create_user(username='jane',email='janedoe@gmail.com',password='sBQl6fk085')
         post = Comments.objects.create(post='This is a new post',author=user_1)

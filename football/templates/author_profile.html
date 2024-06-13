@@ -39,7 +39,11 @@
     </div>
 	{% empty %}
     <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    {% if user.first_name == author.first_name %}
     <p>You don't have any posts yet.</p>
+    {% else %}
+    <p>{{ author.first_name }} does not have any posts yet.</p>
+    {% endif %}
 	</div>
     {% endfor %}
   </div>
@@ -58,7 +62,11 @@
     </div>
 	{% empty %}
     <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    {% if user.first_name == author.first_name %}
     <p>You don't have any replies yet.</p>
+    {% else %}
+    <p>{{ author.first_name }} does not have any replies yet.</p>
+    {% endif %}
 	</div>
     {% endfor %}
   </div>
@@ -88,7 +96,11 @@
     </div>
 	{% empty %}
     <div class="border rounded" style="min-height: 200px;display: flex;justify-content: center;align-items: center;">
+    {% if user.first_name == author.first_name %}
     <p>You don't have any quotes yet.</p>
+    {% else %}
+    <p>{{ author.first_name }} does not have any quotes yet.</p>
+    {% endif %}
 	</div>
     {% endfor %}
   </div>

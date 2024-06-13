@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('FOOTBALL_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'Fan.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'football_DB',
+        'NAME': 'football_center_postgres',
 		'USER': os.environ.get('USER'),
 		'PASSWORD': os.environ.get('PASSWORD'),
-		'HOST': 'football-app-database.c5sk0gsccpf7.eu-north-1.rds.amazonaws.com',
+		'HOST': os.environ.get('HOST'),
 		'PORT': '5432'
     }
 }
