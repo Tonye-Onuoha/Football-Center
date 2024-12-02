@@ -1,28 +1,27 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container">
-  <h1 class="text-center display-6 mt-3" style="font-family: 'Trebuchet MS', sans-serif;">Europes Best Players</h1>
-  {% for club in club_list %}
-  <div class="club-list mb-3" style="font-family: 'Noto Sans', sans-serif;">
-    <h6 class="display-6" style="text-transform:capitalize;font-variant: small-caps;font-family: 'Trebuchet MS', sans-serif;">{{ club }} First Eleven</h6>
-    <div class="starting-11">
-    {% for player in club.players_set.all %}
-    <a href="{{ player.get_absolute_url }}" style="display:block;height:100%;" class="text-decoration-none">
-      <div class="player border" style="height:100%;">
-        <div class="player-image p-1" style="height:70%">
-          <img src="{{ player.image.url }}" alt="{{ player.name }}" style="max-width:100%;max-height:100%;display:block;margin:0 auto;">
+    <h1 class="text-center display-6 mt-3" style="font-family: 'Staatliches', cursive;">Europes Best Players</h1>
+    {% for club in club_list %}
+    <div class="club-list mb-3" style="font-family: 'Staatliches', cursive;">
+        <h6 class="display-6" style="text-transform:capitalize;font-variant: small-caps;">{{ club }} First Eleven</h6>
+        <div class="starting-11">
+            {% for player in club.players_set.all %}
+            <a href="{{ player.get_absolute_url }}" style="display:block;height:100%;" class="text-decoration-none">
+                <div class="player border" style="height:100%;">
+                    <div class="player-image p-1" style="height:70%">
+                        <img src="{{ player.image.url }}" alt="{{ player.name }}" style="max-width:100%;max-height:100%;display:block;margin:0 auto;">
+                    </div>
+                    <div class="player-info bg-secondary text-white text-center p-1" style="height:30%;">
+                        <p>{{ player }}</p>
+                        <hr>
+                        <p>{{ player.club }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
         </div>
-        <div class="player-info bg-secondary text-white text-center p-1" style="height:30%;">
-          <p>{{ player }}</p>
-          <hr>
-          <p>{{ player.club }}</p>
-        </div>
-      </div>
-    </a>
-    {% endfor %}
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 </div>
 {% endblock content %}

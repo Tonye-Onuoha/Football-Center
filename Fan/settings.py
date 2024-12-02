@@ -27,7 +27,7 @@ load_dotenv()
 SECRET_KEY = os.environ.get('FOOTBALL_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'storages',
+    'django_extensions',
     'football.apps.FootballConfig',
 	'api.apps.ApiConfig',
     'crispy_forms',
@@ -65,7 +66,10 @@ ROOT_URLCONF = 'Fan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'search-bar/build'),
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,12 +90,8 @@ WSGI_APPLICATION = 'Fan.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'football_center_postgres',
-		'USER': os.environ.get('USER'),
-		'PASSWORD': os.environ.get('PASSWORD'),
-		'HOST': os.environ.get('HOST'),
-		'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -133,7 +133,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-	os.path.join(BASE_DIR,'media')
+	os.path.join(BASE_DIR, 'media'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Media Files
@@ -169,6 +170,7 @@ REST_FRAMEWORK = {
     )
 }
 
+"""
 # AWS CONFIGURATIONS
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 
@@ -192,3 +194,8 @@ STORAGES = {
         "BACKEND": "storages.backends.s3.S3Storage",
     },
 }
+
+
+"""
+
+

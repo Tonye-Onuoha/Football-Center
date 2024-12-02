@@ -1,72 +1,71 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% if reply.comment %}
 <div class="container border rounded p-4 mt-2 mb-2" style="font-family: 'Noto Sans', sans-serif;">
     <div class="border rounded p-4" style="max-width:70%;margin:0 auto;">
-    <div class="" style="display:flex;justify-content:space-between;">
-      <a href="{% url 'author-profile' reply.comment.author.id %}" class="text-reset text-decoration-none"><img src="{{ reply.comment.author.profile.image.url }}" alt="{{ reply.comment.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.comment.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.comment.author }}</span></a>
-      <span style="font-weight:normal;">{{ reply.comment.date|date:"M d, Y"}} {{ reply.comment.date|time:"H:i" }}</span>
-    </div>
-    <hr>
-    <div class="original-post">
-      {{ reply.comment.post }}
-    </div>
-    <hr>
-    <div class="quote-reply-buttons" style="display:flex;justify-content:space-between;">
-      <a class="text-decoration-none" href="{% url 'quotes-view' reply.comment.id %}"><strong>Quotes</strong></a>
-      <span>
-        <a href="{% url 'quote-post' reply.comment.id %}" title="Quote this post"><i class="bi bi-chat-quote"></i></a>
-        <a href="{% url 'reply-post' reply.comment.id %}" title="Reply this post"><i class="bi bi-reply ms-2"></i></a>
-      </span>
-    </div>
+        <div class="" style="display:flex;justify-content:space-between;">
+            <a href="{% url 'author-profile' reply.comment.author.id %}" class="text-reset text-decoration-none"><img src="{{ reply.comment.author.profile.image.url }}" alt="{{ reply.comment.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.comment.author.first_name }} {{ reply.comment.author.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.comment.author }}</span></a>
+            <span style="font-weight:normal;">{{ reply.comment.date|date:"M d, Y"}} {{ reply.comment.date|time:"H:i" }}</span>
+        </div>
+        <hr>
+        <div class="original-post">
+            {{ reply.comment.post }}
+        </div>
+        <hr>
+        <div class="quote-reply-buttons" style="display:flex;justify-content:space-between;">
+            <a class="text-decoration-none" href="{% url 'quotes-view' reply.comment.id %}"><strong>Quotes</strong></a>
+            <span>
+            <a href="{% url 'quote-post' reply.comment.id %}" title="Quote this post"><i class="bi bi-chat-quote"></i></a>
+            <a href="{% url 'reply-post' reply.comment.id %}" title="Reply this post"><i class="bi bi-reply ms-2"></i></a>
+            </span>
+        </div>
     </div>
     <hr>
     <div class="border rounded p-4 mb-3" style="max-width:70%;margin:0 auto;">
-    <div class="" style="display:flex;justify-content:space-between;">
-      <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
-      <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+        <div class="" style="display:flex;justify-content:space-between;">
+            <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }} {{ reply.user.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
+            <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+        </div>
+        <hr>
+        <div class="reply">
+            {{ reply.reply }}
+        </div>
     </div>
-    <hr>
-    <div class="reply">
-      {{ reply.reply }}
-    </div>
-  </div>
 </div>
 {% else %}
 <div class="container p-3">
-	<div class="border rounded p-4 mb-2" style="max-width:70%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
-     <div class="quote-body">
-        <div class="quote-author" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' reply.quote.user.id %}" class="text-decoration-none text-reset"><img src="{{ reply.quote.user.profile.image.url }}" alt="{{ reply.quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.quote.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.quote.user }}</span></a>
-          <span style="font-weight:normal;">{{ reply.quote.date|date:"M d, Y"}} {{ reply.quote.date|time:"H:i" }}</span>
+    <div class="border rounded p-4 mb-2" style="max-width:70%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
+        <div class="quote-body">
+            <div class="quote-author" style="display:flex;justify-content:space-between;">
+                <a href="{% url 'author-profile' reply.quote.user.id %}" class="text-decoration-none text-reset"><img src="{{ reply.quote.user.profile.image.url }}" alt="{{ reply.quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.quote.user.first_name }} {{ reply.quote.user.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.quote.user }}</span></a>
+                <span style="font-weight:normal;">{{ reply.quote.date|date:"M d, Y"}} {{ reply.quote.date|time:"H:i" }}</span>
+            </div>
+            <hr>
+            <a href="#" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
+            {{ reply.quote.quote }}
+            </a>
         </div>
-        <hr>
-         <a href="#" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
-          {{ reply.quote.quote }}
-        </a>
-    </div>
-    <div class="post-body border rounded p-4">
-        <div class="" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' reply.quote.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ reply.quote.post.author.profile.image.url }}" alt="{{ reply.quote.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.quote.post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.quote.post.author }}</span></a>
-          <span style="font-weight:normal;">{{ reply.quote.post.date|date:"M d, Y"}} {{ reply.quote.post.date|time:"H:i" }}</span>
+        <div class="post-body border rounded p-4">
+            <div class="" style="display:flex;justify-content:space-between;">
+                <a href="{% url 'author-profile' reply.quote.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ reply.quote.post.author.profile.image.url }}" alt="{{ reply.quote.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.quote.post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.quote.post.author }}</span></a>
+                <span style="font-weight:normal;">{{ reply.quote.post.date|date:"M d, Y"}} {{ reply.quote.post.date|time:"H:i" }}</span>
+            </div>
+            <hr>
+            <div class="original-post" style="line-height: 2.0;">
+                {{ reply.quote.post.post }}
+            </div>
         </div>
-        <hr>
-        <div class="original-post" style="line-height: 2.0;">
-          {{ reply.quote.post.post }}
-        </div>
-    </div>
-  </div>
-	<hr>
-	<div class="border rounded p-4 mt-2" style="max-width:70%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
-    <div class="" style="display:flex;justify-content:space-between;">
-      <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
-      <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
     </div>
     <hr>
-    <div class="reply">
-      {{ reply.reply }}
-    </div>
+    <div class="border rounded p-4 mt-2" style="max-width:70%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
+        <div class="" style="display:flex;justify-content:space-between;">
+            <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }} {{ reply.user.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
+            <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+        </div>
+        <hr>
+        <div class="reply">
+            {{ reply.reply }}
+        </div>
     </div>
 </div>
 {% endif %}

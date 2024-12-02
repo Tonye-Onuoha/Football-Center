@@ -27,6 +27,8 @@ urlpatterns = [
 	path('reply-quote/<int:id>/',views.reply_quote,name='reply-quote'),
 	path('quote-replies/<int:id>/',views.quote_replies,name='quote-replies'),
     path('author-profile/<int:id>/',views.author_profile,name='author-profile'),
-    path('notifications/new',views.notifications_view_new,name='user-notifications-new'),
-    path('notifications/all',views.notifications_view_all,name='user-notifications-all'),
+    path('notifications/new/',views.notifications_view_new,name='user-notifications-new'),
+    path('notifications/all/',views.notifications_view_all,name='user-notifications-all'),
+    path('followed-profiles/<str:username>/', views.followed_profiles, name='followed-profiles'),
+    path('profile-followers/<str:username>/', views.profile_followers, name='profile-followers'),
 ]

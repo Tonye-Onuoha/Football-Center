@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import ModelForm
-from .models import Comments,Profile
+from .models import Comments,Profiles
 from django.utils.translation import gettext_lazy as _
 
 
@@ -26,7 +25,7 @@ class PostForm(forms.Form):
     post = forms.CharField(label="",widget=forms.Textarea())
 
         
-class PostModelForm(ModelForm):
+class PostModelForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.fields['post'].widget.attrs.update({'class':'post-model-form','placeholder':'Enter a post'})
@@ -45,8 +44,9 @@ class QuoteForm(forms.Form):
     quote = forms.CharField(label='',help_text='Enter a quote',max_length=150,widget=forms.Textarea())
 
 
-class ProfileUpdateForm(ModelForm):
+class ProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = Profiles
         fields = ['bio','image']
         help_texts = {'bio':_('Tell us about yourself'),}
+        widgets = {'bio': forms.Textarea(attrs={'placeholder':'Tell us about yourself here.'})}

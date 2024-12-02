@@ -1,38 +1,37 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container">
-	<div class="mt-3" style="min-height: 400px;">
-		<h2 class="text-center text-danger mt-2 mb-3 display-6">Delete this quote ?</h2>
-	<div class="border rounded p-4 mt-2 mb-3" style="max-width:75%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
-      <div class="quote-body">
-        <div class="quote-author" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' quote.user.id %}" class="text-decoration-none text-reset"><img src="{{ quote.user.profile.image.url }}" alt="{{ quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ quote.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.user }}</span></a>
-          <span style="font-weight:normal;">{{ quote.date|date:"M d, Y"}} {{ quote.date|time:"H:i" }}</span>
+    <div class="mt-3" style="min-height: 400px;">
+        <h2 class="text-center text-danger mt-2 mb-3 display-6">Delete this quote ?</h2>
+        <div class="border rounded p-4 mt-2 mb-3" style="max-width:75%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
+            <div class="quote-body">
+                <div class="quote-author" style="display:flex;justify-content:space-between;">
+                    <a href="{% url 'author-profile' quote.user.id %}" class="text-decoration-none text-reset"><img src="{{ quote.user.profile.image.url }}" alt="{{ quote.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ quote.user.first_name }} {{ quote.user.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.user }}</span></a>
+                    <span style="font-weight:normal;">{{ quote.date|date:"M d, Y"}} {{ quote.date|time:"H:i" }}</span>
+                </div>
+                <hr>
+                <a href="{% url 'quote-replies' quote.id %}" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
+                {{ quote.quote }}
+                </a>
+            </div>
+            <div class="post-body border rounded p-4">
+                <div class="" style="display:flex;justify-content:space-between;">
+                    <a href="{% url 'author-profile' quote.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ quote.post.author.profile.image.url }}" alt="{{ quote.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;"><strong>{{ quote.post.author.first_name }} {{ quote.post.author.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.post.author }}</span></a>
+                    <span style="font-weight:normal;">{{ quote.post.date|date:"M d, Y"}} {{ quote.post.date|time:"H:i" }}</span>
+                </div>
+                <hr>
+                <div class="original-post" style="line-height: 2.0;">
+                    {{ quote.post.post }}
+                </div>
+            </div>
         </div>
-        <hr>
-         <a href="{% url 'quote-replies' quote.id %}" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
-          {{ quote.quote }}
-        </a>
-      </div>
-      <div class="post-body border rounded p-4">
-        <div class="" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' quote.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ quote.post.author.profile.image.url }}" alt="{{ quote.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;"><strong>{{ quote.post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ quote.post.author }}</span></a>
-          <span style="font-weight:normal;">{{ quote.post.date|date:"M d, Y"}} {{ quote.post.date|time:"H:i" }}</span>
-        </div>
-        <hr>
-        <div class="original-post" style="line-height: 2.0;">
-          {{ quote.post.post }}
-        </div>
-      </div>
     </div>
-	</div>
-	<form class="mt-4 mb-3" method="POST">
-    {% csrf_token %}
-    <div class="delete-buttons" style="max-width:70%;margin:0 auto;display:flex;justify-content:space-around;">
-      <input type="submit" class="btn btn-danger" value="YES">
-      <a href="{% url 'home' %}"><button type="button" name="button" class="btn btn-primary">NO</button></a>
-    </div>
-  </form>
+    <form class="mt-4 mb-3" method="POST">
+        {% csrf_token %}
+        <div class="delete-buttons" style="max-width:70%;margin:0 auto;display:flex;justify-content:space-around;">
+            <input type="submit" class="btn btn-danger" value="YES">
+            <a href="{% url 'home' %}"><button type="button" name="button" class="btn btn-primary">NO</button></a>
+        </div>
+    </form>
 </div>
 {% endblock content %}

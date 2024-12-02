@@ -1,197 +1,208 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container-fluid home">
-  <div id="chatApp" class="chat-app border p-1" style="height: 786px;overflow: auto">
-    {% if user.is_authenticated %}
-	{% if posts %}
-    {% for post in posts %}
-    {% if post.quote %}
-    <div class="border rounded p-4 mt-2 mb-3" style="max-width:90%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
-      <div class="quote-body">
-        <div class="quote-author" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' post.user.id %}" class="text-decoration-none text-reset"><img src="{{ post.user.profile.image.url }}" alt="{{ post.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.user }}</span></a>
-          <span style="font-weight:normal;">{{ post.date|date:"M d, Y"}} {{ post.date|time:"H:i" }}</span>
-        </div>
-        <hr>
-         <a href="{% url 'quote-replies' post.id %}" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
-          {{ post.quote }}
-        </a>
-      </div>
-      <div class="post-body border rounded p-4">
-        <div class="" style="display:flex;justify-content:space-between;">
-          <a href="{% url 'author-profile' post.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.post.author.profile.image.url }}" alt="{{ post.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.post.author }}</span></a>
-          <span style="font-weight:normal;">{{ post.post.date|date:"M d, Y"}} {{ post.post.date|time:"H:i" }}</span>
-        </div>
-        <hr>
-        <a href="{% url 'post-replies' post.post.id %}" class="original-post text-reset text-decoration-none" style="display: block; line-height: 2.0;">
-          {{ post.post.post }}
-        </a>
-      </div>
-      <hr>
-      <div class="buttons" style="display:flex;justify-content:flex-end;font-family: 'Noto Sans',sans-serif;">
-        {% if post.user == request.user %}
-        <a href="{% url 'edit-quote' post.id %}"><button type="button" class="btn btn-sm" style="background-color:limegreen;color:white;">Edit</button></a>
-        <a href="{% url 'delete-quote' post.id %}"><button type="button" class="btn btn-sm text-white ms-2" style="background-color:#5585b5;">Drop</button></a>
-        {% endif %}
-        <a href="{% url 'reply-quote' post.id %}"><i class="bi bi-reply ms-2"></i></a>
-        <i class="bi bi-hand-thumbs-up-fill thumb ms-2"></i>
-      </div>
-    </div>
-    {% else %}
-    <div class="border rounded p-4 mb-2" style="max-width:90%;margin:0 auto;">
-      <div class="" style="display:flex;justify-content:space-between;">
-        <a href="{% url 'author-profile' post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.author.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ post.author }}</span></a>
-        <span style="font-weight:normal;">{{ post.date|date:"M/d/Y"}} {{ post.date|time:"H:i" }}</span>
-      </div>
-      <hr>
-      <a href="{% url 'post-replies' post.id %}" class="text-decoration-none text-reset" style="display:block;line-height:2.0">
-        <div class="original-post">
-          {{ post.post }}
-        </div>
-      </a>
-      <hr>
-      <div class="buttons" style="display:flex;justify-content:flex-end;font-family: 'Noto Sans',sans-serif;">
-        {% if post.author == request.user %}
-        <a href="{% url 'edit-post' post.id %}"><button type="button" class="btn btn-sm" style="background-color:limegreen;color:white;">Edit</button></a>
-        <a href="{% url 'delete-post' post.id %}"><button type="button" class="btn btn-sm text-white ms-2" style="background-color:#5585b5;">Drop</button></a>
-        {% endif %}
-        <a href="{% url 'reply-post' post.id %}"><i class="bi bi-reply ms-2"></i></a>
-        <i class="bi bi-hand-thumbs-up-fill thumb ms-2"></i>
-      </div>
-    </div>
+<div class="container-fluid">
+    {% if message %}
+      <div class="alert alert-success text-center p-2 mt-1 w-75" style="margin: 0 auto;"><strong>Success! </strong>{{ message }}</div>
     {% endif %}
-    {% endfor %}
-	{% else %}
-	<div style="display: flex;justify-content: center;align-items: center;height: 786px;">
-	There are no posts available. Click <strong class="text-primary"> "Create Post" </strong> to create a new post.
+    <div class="search-grid mt-1 mb-1">
+        <div class="search-logo text-center">Search</div>
+        <div id="root" class="search-bar"></div>
     </div>
-	{% endif %}
-    {% endif %}
-  </div>
-  <div id="statsTable" class="stats-table" >
-    <div class="welcome" style="justify-self:center;">
-      <h1 class="display-4 p-2" style="font-family: 'Staatliches', cursive;">Welcome to the heart of football</h1>
+    <div class="home">
+        <div id="chatApp" class="chat-app border p-1" style="height: 786px;overflow: auto">
+            {% if user.is_authenticated %}
+            {% if posts %}
+            {% for post in posts %}
+            {% if post.quote %}
+            <div class="border rounded p-3 mt-2 mb-3" style="max-width:90%;margin:0 auto;font-family:'Noto Sans',sans-serif;">
+                <div class="quote-body">
+                    <div class="quote-author" style="display:flex;justify-content:space-between;">
+                        <a href="{% url 'author-profile' post.user.id %}" class="text-decoration-none text-reset"><img src="{{ post.user.profile.image.url }}" alt="{{ post.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.user.first_name }} {{ post.user.last_name }}</strong> @{{ post.user }}<i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;"></span></a>
+                        <span style="font-weight:normal;">{{ post.date|date:"n/j/y"}} {{ post.date|time:"H:i" }}</span>
+                    </div>
+                    <hr>
+                    <a href="{% url 'quote-replies' post.id %}" class="original-quote text-reset text-decoration-none mb-2" style="line-height: 2.0;display: block">
+                    {{ post.quote }}
+                    </a>
+                </div>
+                <div class="post-body border rounded p-3">
+                    <div class="" style="display:flex;justify-content:space-between;">
+                        <a href="{% url 'author-profile' post.post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.post.author.profile.image.url }}" alt="{{ post.post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.post.author.first_name }} {{ post.post.author.last_name }}</strong> @{{ post.post.author }}<i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;"></span></a>
+                        <span style="font-weight:normal;">{{ post.post.date|date:"n/j/y"}} {{ post.post.date|time:"H:i" }}</span>
+                    </div>
+                    <hr>
+                    <a href="{% url 'post-replies' post.post.id %}" class="original-post text-reset text-decoration-none" style="display: block; line-height: 2.0;">
+                    {{ post.post.post }}
+                    </a>
+                </div>
+                <hr>
+                <div class="buttons" style="display:flex;justify-content:flex-end;font-family: 'Noto Sans',sans-serif;">
+                    {% if post.user == request.user %}
+                    <a href="{% url 'edit-quote' post.id %}"><button type="button" class="btn btn-sm" style="background-color:limegreen;color:white;">Edit</button></a>
+                    <a href="{% url 'delete-quote' post.id %}"><button type="button" class="btn btn-sm text-white ms-2" style="background-color:#5c5cff;">Drop</button></a>
+                    {% endif %}
+                    <a href="{% url 'reply-quote' post.id %}"><i class="bi bi-reply ms-2"></i></a>
+                    <i class="bi bi-hand-thumbs-up-fill thumb ms-2"></i>
+                </div>
+            </div>
+            {% else %}
+            <div class="border rounded p-3 mb-2" style="max-width:90%;margin:0 auto;">
+                <div class="" style="display:flex;justify-content:space-between;">
+                    <a href="{% url 'author-profile' post.author.id %}" class="text-decoration-none text-reset"><img src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong> @{{ post.author }}<i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;"></span></a>
+                    <span style="font-weight:normal;">{{ post.date|date:"n/j/y"}} {{ post.date|time:"H:i" }}</span>
+                </div>
+                <hr>
+                <a href="{% url 'post-replies' post.id %}" class="text-decoration-none text-reset" style="display:block;line-height:2.0">
+                    <div class="original-post">
+                        {{ post.post }}
+                    </div>
+                </a>
+                <hr>
+                <div class="buttons" style="display:flex;justify-content:flex-end;font-family: 'Noto Sans',sans-serif;">
+                    {% if post.author == request.user %}
+                    <a href="{% url 'edit-post' post.id %}"><button type="button" class="btn btn-sm" style="background-color:limegreen;color:white;">Edit</button></a>
+                    <a href="{% url 'delete-post' post.id %}"><button type="button" class="btn btn-sm text-white ms-2" style="background-color:#5c5cff;">Drop</button></a>
+                    {% endif %}
+                    <a href="{% url 'reply-post' post.id %}"><i class="bi bi-reply ms-2"></i></a>
+                    <i class="bi bi-hand-thumbs-up-fill thumb ms-2"></i>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <div style="display: flex;flex-direction: column; justify-content: center;align-items: center;height: 786px;">
+                <p>There are no posts available.</p>
+                <p>Click <strong class="text-primary">"Create Post"</strong> to create a new post.</p>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+        <div id="statsTable" class="stats-table" >
+            <div class="welcome" style="justify-self:center;">
+                <h1 class="display-4 p-2" style="font-family: 'Staatliches', cursive;">Welcome to the heart of football</h1>
+            </div>
+            <div class="scores">
+                <div class="team1" style="height:100%;max-height:100%;">
+                    <div class="team-logo text-center" style="height:80%;">
+                        <a href="{{ team1.get_absolute_url }}"><img class="" src="{{ team1.logo.url }}" alt="{{ team1.name }}" style="max-width:100%;max-height:100%;"></a>
+                    </div>
+                    <div class="team-name text-center" style="height:20%;display:flex;justify-content:center;align-items:flex-end;">
+                        <p><strong>{{ team1 }}</strong></p>
+                    </div>
+                </div>
+                <div class="goal1" style="display:flex;justify-content:center;align-items:center">
+                    <h1 class="mb-5" style="font-size:64px;">{{ goal1 }}</h1>
+                </div>
+                <div class="fixture">
+                    <div class="" style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                        <p>{{ team1.league }}</p>
+                        <h1>VS</h1>
+                        <p style="font-family:'Noto Sans',sans-serif;">Today</p>
+                        <p><small style="font-family:'Noto Sans',sans-serif;">{% if time_range > 94 %}Full-Time{% elif time_range == 45 %}Half-Time{% else %}{{ time_range }}'{% endif %}</small></p>
+                    </div>
+                </div>
+                <div class="goal2" style="display:flex;justify-content:center;align-items:center">
+                    <h1 class="mb-5" style="font-size:64px;">{{ goal2 }}</h1>
+                </div>
+                <div class="team2" style="height:100%;max-height:100%;">
+                    <div class="team-logo text-center" style="height:80%;">
+                        <a href="{{ team2.get_absolute_url }}"><img class="" src="{{ team2.logo.url }}" alt="{{ team2.name }}" style="max-width:100%;max-height:100%;"></a>
+                    </div>
+                    <div class="team-name text-center" style="height:20%;display:flex;justify-content:center;align-items:flex-end;">
+                        <p><strong>{{ team2 }}</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="goal-scorers" style="font-size:14px;">
+                <div class="team1-scorers p-2">
+                    {% for scorer in team1_goalscorers %}
+                    {% if not forloop.last %}
+                    <span style="word-wrap: break-word;word-break: keep-all">{{ scorer }}</span>
+                    <br>
+                    {% else %}
+                    {{ scorer }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="scorers-border">
+                </div>
+                <div class="team2-scorers p-2">
+                    {% for scorer in team2_goalscorers %}
+                    {% if not forloop.last %}
+                    <span style="word-wrap: break-word;word-break: keep-all">{{ scorer }}</span>
+                    <br>
+                    {% else %}
+                    {{ scorer }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="table">
+                <table class="table table-striped w-75 text-center table-bordered rounded border-reset" style="margin:0 auto;">
+                    <thead>
+                        <tr>
+                            <th>{{ team1 }}</th>
+                            <th>Team Stats</th>
+                            <th>{{ team2 }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ team1_pos }}%</td>
+                            <td>Possession</td>
+                            <td>{{ team2_pos }}%</td>
+                        </tr>
+                        <tr>
+                            <td>{{ shots1_range }}</td>
+                            <td>Shots</td>
+                            <td>{{ shots2_range }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ shots1_target }}</td>
+                            <td>Shots on target</td>
+                            <td>{{ shots2_target }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ passes1 }}</td>
+                            <td>Passes</td>
+                            <td>{{ passes2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ pass_acc1 }}%</td>
+                            <td>Pass accuracy</td>
+                            <td>{{ pass_acc2 }}%</td>
+                        </tr>
+                        <tr>
+                            <td>{{ foul1 }}</td>
+                            <td>Fouls</td>
+                            <td>{{ foul2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ yellow_cards1 }}</td>
+                            <td>Yellow cards</td>
+                            <td>{{ yellow_cards2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ red_cards1 }}</td>
+                            <td>Red cards</td>
+                            <td>{{ red_cards2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ corner1 }}</td>
+                            <td>Corners</td>
+                            <td>{{ corner2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ offside1 }}</td>
+                            <td>Offsides</td>
+                            <td>{{ offside2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="scores">
-      <div class="team1" style="height:100%;max-height:100%;">
-        <div class="team-logo text-center" style="height:80%;">
-          <a href="{{ team1.get_absolute_url }}"><img class="" src="{{ team1.logo.url }}" alt="{{ team1.name }}" style="max-width:100%;max-height:100%;"></a>
-        </div>
-        <div class="team-name text-center" style="height:20%;display:flex;justify-content:center;align-items:flex-end;">
-          <p><strong>{{ team1 }}</strong></p>
-        </div>
-      </div>
-      <div class="goal1" style="display:flex;justify-content:center;align-items:center">
-          <h1 class="mb-5" style="font-size:64px;">{{ goal1 }}</h1>
-      </div>
-      <div class="fixture">
-        <div class="" style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-          <p>{{ team1.league }}</p>
-          <h1>VS</h1>
-          <p style="font-family:'Noto Sans',sans-serif;">Today</p>
-          <p><small style="font-family:'Noto Sans',sans-serif;">{% if time_range > 94 %}Full-Time{% elif time_range == 45 %}Half-Time{% else %}{{ time_range }}'{% endif %}</small></p>
-        </div>
-      </div>
-      <div class="goal2" style="display:flex;justify-content:center;align-items:center">
-        <h1 class="mb-5" style="font-size:64px;">{{ goal2 }}</h1>
-      </div>
-      <div class="team2" style="height:100%;max-height:100%;">
-        <div class="team-logo text-center" style="height:80%;">
-          <a href="{{ team2.get_absolute_url }}"><img class="" src="{{ team2.logo.url }}" alt="{{ team2.name }}" style="max-width:100%;max-height:100%;"></a>
-        </div>
-        <div class="team-name text-center" style="height:20%;display:flex;justify-content:center;align-items:flex-end;">
-          <p><strong>{{ team2 }}</strong></p>
-        </div>
-      </div>
-    </div>
-    <div class="goal-scorers" style="font-size:14px;">
-      <div class="team1-scorers p-2">
-          {% for scorer in team1_goalscorers %}
-          {% if not forloop.last %}
-          <span style="word-wrap: break-word;word-break: keep-all">{{ scorer }}</span>
-		  <br>
-          {% else %}
-          {{ scorer }}
-          {% endif %}
-          {% endfor %}
-      </div>
-      <div class="scorers-border">
-      </div>
-      <div class="team2-scorers p-2">
-          {% for scorer in team2_goalscorers %}
-          {% if not forloop.last %}
-          <span style="word-wrap: break-word;word-break: keep-all">{{ scorer }}</span>
-		  <br>
-          {% else %}
-          {{ scorer }}
-          {% endif %}
-          {% endfor %}
-      </div>
-    </div>
-    <div class="table">
-      <table class="table table-striped w-75 text-center table-bordered rounded border-reset" style="margin:0 auto;">
-        <thead>
-          <tr>
-            <th>{{ team1 }}</th>
-            <th>Team Stats</th>
-            <th>{{ team2 }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ team1_pos }}%</td>
-            <td>Possession</td>
-            <td>{{ team2_pos }}%</td>
-          </tr>
-          <tr>
-            <td>{{ shots1_range }}</td>
-            <td>Shots</td>
-            <td>{{ shots2_range }}</td>
-          </tr>
-          <tr>
-            <td>{{ shots1_target }}</td>
-            <td>Shots on target</td>
-            <td>{{ shots2_target }}</td>
-          </tr>
-          <tr>
-            <td>{{ passes1 }}</td>
-            <td>Passes</td>
-            <td>{{ passes2 }}</td>
-          </tr>
-          <tr>
-            <td>{{ pass_acc1 }}%</td>
-            <td>Pass accuracy</td>
-            <td>{{ pass_acc2 }}%</td>
-          </tr>
-          <tr>
-            <td>{{ foul1 }}</td>
-            <td>Fouls</td>
-            <td>{{ foul2 }}</td>
-          </tr>
-          <tr>
-            <td>{{ yellow_cards1 }}</td>
-            <td>Yellow cards</td>
-            <td>{{ yellow_cards2 }}</td>
-          </tr>
-          <tr>
-            <td>{{ red_cards1 }}</td>
-            <td>Red cards</td>
-            <td>{{ red_cards2 }}</td>
-          </tr>
-          <tr>
-            <td>{{ corner1 }}</td>
-            <td>Corners</td>
-            <td>{{ corner2 }}</td>
-          </tr>
-          <tr>
-            <td>{{ offside1 }}</td>
-            <td>Offsides</td>
-            <td>{{ offside2 }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
+<script src="{% static 'search_bundle.js' %}"></script>
 {% endblock content %}

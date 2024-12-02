@@ -1,30 +1,28 @@
 {% extends "base.html" %}
-
-
 {% block content %}
 <div class="container" style="font-family:'Noto Sans';">
-	<h2 class="text-center text-danger mt-2 mb-2">Delete this reply ?</h2>
-	<div style="min-height: 400px;display: flex;justify-content: center;align-items: center;">
-		<form class="w-75" method="post">
-		{% csrf_token %}
-		<div class="border rounded p-4" style="max-width:70%;margin:0 auto;">
-    	<div class="" style="display:flex;justify-content:space-between;">
-      	<a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
-      	<span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
-    	</div>
-    	<hr>
-    	<div class="reply">
-      	{{ reply.reply }}
-    	</div>
-		<hr>
-  		</div>
-		{% if reply.user == request.user %}
-		<div class="mt-5" style="display: flex;justify-content: space-around">
-		<input type="submit" class="btn btn-danger" value="YES">
-		<a href="{% url 'home' %}" class="btn btn-primary">NO</a>
-		</div>
-		{% endif %}
-		</form>
-	</div>
+    <h2 class="text-center text-danger mt-2 mb-2">Delete this reply ?</h2>
+    <div style="min-height: 400px;display: flex;justify-content: center;align-items: center;">
+        <form class="w-75" method="post">
+            {% csrf_token %}
+            <div class="border rounded p-4" style="max-width:70%;margin:0 auto;">
+                <div class="" style="display:flex;justify-content:space-between;">
+                    <a><img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user }}" class="rounded-circle" style="height:30px;width:30px;max-height:100%;max-width:100%;object-fit: cover;"><strong>{{ reply.user.first_name }} {{ reply.user.last_name }}</strong><i class="bi bi-patch-check-fill me-1 text-primary"></i><span style="font-weight:normal;">@{{ reply.user }}</span></a>
+                    <span style="font-weight:normal;">{{ reply.date|date:"M d, Y"}} {{ reply.date|time:"H:i" }}</span>
+                </div>
+                <hr>
+                <div class="reply">
+                    {{ reply.reply }}
+                </div>
+                <hr>
+            </div>
+            {% if reply.user == request.user %}
+            <div class="mt-5" style="display: flex;justify-content: space-around">
+                <input type="submit" class="btn btn-danger" value="YES">
+                <a href="{% url 'home' %}" class="btn btn-primary">NO</a>
+            </div>
+            {% endif %}
+        </form>
+    </div>
 </div>
 {% endblock content %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container" style="min-height: 450px;font-family: 'Noto Sans', sans-serif;">
+    <div id="root"></div>
+</div>
+<script src="{% static 'following_bundle.js' %}"></script>
+{% endblock content %}

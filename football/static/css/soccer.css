@@ -1,332 +1,501 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-	width: 100%;
+    width: 100%;
 }
 
 body {
-	width: 100%;
-	font-family: 'Noto Sans', sans-serif;
+    width: 100%;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .registration {
-	border-top: 2px solid white;
-	background-image: url('skysports-manchester-united.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
+    border-top: 2px solid white;
+    background-image: url("skysports-manchester-united.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .registerform {
-	width: 70%;
-	margin-left: 15%
+    width: 70%;
+    margin-left: 15%;
 }
 
 .registerform legend {
-	font-family: verdana;
+    font-family: verdana;
+}
+
+.registerform .errorlist {
+    list-style-type: none;
+    padding: 0;
+}
+
+.registerform .errorlist li {
+    padding-left: 5px;
 }
 
 .registerform label {
-	font-family: "Trebuchet MS", sans-serif;
-	font-weight: 400;
-	color: #fff;
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: 400;
+    color: #fff;
 }
 
 .registerform input[type="text"],
 .registerform input[type="password"],
 .registerform input[type="email"] {
-	border: 2px solid grey;
-	padding: 7px;
+    border: 2px solid grey;
+    padding: 7px;
 }
 
 .login {
-	height: 100%;
-	margin-top: 2px;
-	font-family: "Trebuchet MS", sans-serif;
+    height: 100%;
+    margin-top: 2px;
+    font-family: "Trebuchet MS", sans-serif;
 }
 
 .login .login-button {
-	width: 75%;
-	margin: 0 auto;
+    width: 75%;
+    margin: 0 auto;
 }
 
 .login .login-button > input {
-	width: 100%;
+    width: 100%;
 }
 
 .login > p {
-	text-align: center;
+    text-align: center;
 }
 
 .logout {
-	height: inherit;
-	font-family: 'Vidaloka', serif;
+    height: inherit;
+    font-family: "Vidaloka", serif;
 }
 
 input[type="text"].profile {
-	outline: 1px solid lightgreen;
+    outline: 1px solid lightgreen;
 }
 
 input[type="file"] {
-	outline: 1px solid lightgreen;
+    outline: 1px solid lightgreen;
 }
 
 header {
-	font-family: 'Staatliches', cursive;
-	padding: 1.7%;
-	background: black;
-	color: white;
-	border-bottom: 2px solid white;
+    font-family: "Staatliches", cursive;
+    padding: 1.7%;
+    background: black;
+    color: white;
+    border-bottom: 2px solid white;
 }
 
 .navigation-container {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background: grey;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: grey;
 }
 
 .navigation-link {
-	float: left;
-	width: 14.285%;
+    float: left;
+    width: 14.285%;
 }
 
 .navigation-link a {
-	display: block;
-	padding: 7%;
-	text-align: center;
-	text-decoration: none;
-	color: white;
-	font-family: 'Noto Sans', sans-serif;
+    display: block;
+    padding: 7%;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .navigation-link #dropbox > a {
-	text-align: left;
+    text-align: left;
 }
 
 .navigation-link #dropbox a > i:not(.bi-bell) {
-	margin-left: 50%;
+    margin-left: 50%;
 }
 
 .navigation-link #dropbox .bi-bell {
-	margin-left: 23%;
+    margin-left: 23%;
 }
 
-
 #brand {
-	background: black;
-	color: white;
+    background: black;
+    color: white;
 }
 
 #dropbox {
-	position: absolute;
-	width: inherit;
-	background: grey;
-	display: none;
+    position: absolute;
+    width: inherit;
+    background: grey;
+    display: none;
 }
 
 #dropdown:hover #dropbox {
-	display: block;
+    display: block;
 }
 
 .navigation-link a:hover:not(.brand) {
-	background-color: #333333;
+    background-color: #333333;
 }
 
 .notification {
-	margin-bottom: 1%;
+    margin-bottom: 1%;
 }
 
 .notification:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .notification:hover {
-	background-color: #EDE4E3;
+    background-color: #ede4e3;
 }
 
 .paginate > a {
-	width: 100px;
-	height: 40px;
+    width: 100px;
+    height: 40px;
 }
 
 /* Home Page Layout */
+
+.search-grid {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 25% 61.25%;
+    grid-template-rows: 100%;
+    grid-column-gap: 3px;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.search-logo {
+    display: grid;
+    height: 100%;
+    align-items: center;
+    background-color: #5c5cff;
+    color: #ffffff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.search-form {
+    position: relative;
+    height: 100%;
+}
+
+.search-form-input{
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.search-form-input:focus {
+    outline: 2px solid #5c5cff;
+}
+
+.search-list {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    margin-top: 5px;
+}
+
+.search-list-item-container {
+    display: flex;
+    border-bottom: 1px solid silver;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+    background-color: white;
+    padding: 1%;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.search-list-item {
+    display: flex;
+    width: 70%;
+    text-decoration: none;
+    color: black;
+}
+
+.search-list-item-container:first-child {
+    border-top: 1px solid silver;
+}
+
+
+.search-list-item:hover {
+    cursor: pointer;
+}
+
+.search-list-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 75px;
+}
+
+.search-list-image img {
+    max-height: 100%;
+    max-width: 100%;
+    height: 100%;
+    width: 75px;
+    object-fit: cover;
+}
+
+.search-list-info {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-list-button {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-list-button .current-user {
+  width: 52.5%;
+  padding: 5.5px;
+  border: none;
+  background: transparent;
+}
+
+.nonexistent-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    border: 1px solid silver;
+    background-color: white;
+    margin-top: 5px;
+}
+
 .home {
-	display: grid;
-	grid-column-gap: 3px;
-	grid-template-columns: 40% 60%;
-	font-family: 'Noto Sans', sans-serif;
-	width: 100%;
-	margin: 0 auto;
+    display: grid;
+    grid-column-gap: 3px;
+    grid-template-columns: 40% 60%;
+    font-family: "Noto Sans", sans-serif;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .stats-table {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 70px 240px auto auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 240px auto auto;
 }
 
 .scores {
-	display: grid;
-	grid-template-columns: 25% 10% 30% 10% 25%;
-	grid-template-rows: 240px;
+    display: grid;
+    grid-template-columns: 25% 10% 30% 10% 25%;
+    grid-template-rows: 240px;
 }
 
 .goal-scorers {
-	display: grid;
-	grid-template-columns: 25% 50% 25%;
-	justify-items: center;
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    justify-items: center;
 }
 
 .buttons i {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 /* This css style is used by the PostModelForm for edits */
 .post-model-form {
-	line-height: 2.0;
-	width: 100%;
-	border: 1px solid silver;
-	border-radius: 3px;
-	padding: 1%;
+    line-height: 2;
+    width: 100%;
+    border: 1px solid silver;
+    border-radius: 3px;
+    padding: 1%;
 }
 
 table {
-	height: 100%;
-	max-height: 100%;
-	border: 5px solid red;
-	border-radius: 70px;
+    height: 100%;
+    max-height: 100%;
+    border: 5px solid red;
+    border-radius: 70px;
 }
 
 th,
 td {
-	width: 33.33%;
-	padding: 10%;
+    width: 33.33%;
+    padding: 10%;
 }
 
 /* leagues section */
 .flexbox-container {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-around;
-	align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .flexbox-items {
-	max-height: 200px;
+    max-height: 200px;
 }
 
 /* league-details section*/
 .parent {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .parent > .logo {
-	width: 50%;
-	display: flex;
-	justify-content: center;
+    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .parent > .description {
-	width: 50%;
-	padding: 1%;
-	outline: 1px solid lightgray;
-	border-radius: 5px;
+    width: 50%;
+    padding: 1%;
+    outline: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 /* Player List Section */
 .club-list {
-	display: grid;
-	grid-template-columns: 100%;
-	grid-auto-rows: auto auto;
-	grid-row-gap: 5px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: auto auto;
+    grid-row-gap: 5px;
 }
 
 .starting-11 {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-auto-rows: 300px;
-	grid-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 300px;
+    grid-gap: 10px;
 }
 
 .starting-11 > a:hover {
-	box-shadow: 1px 1px 3px 3px silver;
+    box-shadow: 1px 1px 3px 3px silver;
 }
 
 /* Player Detail Section */
 .player-detail {
-	height: 750px;
-	display: grid;
-	grid-template-columns: 35% 64%;
-	grid-template-rows: 45% 54%;
-	grid-gap: 1%;
+    height: 750px;
+    display: grid;
+    grid-template-columns: 35% 64%;
+    grid-template-rows: 45% 54%;
+    grid-gap: 1%;
 }
 
 /* Profile Section */
 .profile-container {
-	height: 930px;
-	display: grid;
-	grid-template-columns: 1fr 3fr;
-	grid-template-rows: auto auto;
-	grid-template-areas:
-		"profile-image profile-info"
-		"profile-form profile-form";
-	grid-column-gap: 5px;
-	grid-row-gap: 5px;
+    height: 930px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "profile-image profile-info"
+        "profile-form profile-form";
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
 }
 
 .profile-image {
-	grid-area: profile-image;
+    grid-area: profile-image;
 }
 
 .profile-info {
-	grid-area: profile-info;
+    grid-area: profile-info;
 }
 
 .profile-form {
-	grid-area: profile-form;
+    grid-area: profile-form;
 }
 
 .user-profile {
-	display: grid;
-	height: 250px;
-	grid-template-columns: 1fr 2fr;
-	grid-template-rows: 250px;
-	grid-column-gap: 5px;
+    display: flex;
+    justify-content: space-between;
+    height: 260px;
+}
+
+.user-profile-item1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 33%;
+    height: 100%;
+    text-align: center;
+}
+
+.follow-numbers {
+    width: 225px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.user-profile-item1 img{
+    outline: 3px solid #5c5cff;
+}
+
+.user-profile-item2 {
+    width: 65%;
+    border: 1px solid red;
+}
+
+.follow-button {
+    width: 52.5%;
+    padding: 5.5px;
+}
+
+.follow-button-following {
+    background-color: lightgray;
+}
+
+.follow-button-following:hover {
+    background-color: black;
+    color: white;
 }
 
 .user-tabs {
-	background-color: white;
+    background-color: white;
 }
 
 .user-tabs > button {
-	border: none;
-	padding: 1.25%;
-	width: 25%;
+    border: none;
+    padding: 1.25%;
+    width: 25%;
 }
 
 .usertabcontent {
-	display: none;
-	animation: fadeInContent 1.5s;
+    display: none;
+    animation: fadeInContent 1.5s;
 }
 
 @keyframes fadeInContent {
-	from {opacity: 0;}
-	to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .activetab {
-	background-color: darkgray;
+    background-color: darkgray;
+    font-weight: bold;
 }
 
 /* footer section */
 footer {
-	font-family: 'Staatliches', cursive;
-	background-color: black;
-	color: white;
+    font-family: "Staatliches", cursive;
+    background-color: black;
+    color: white;
 }
