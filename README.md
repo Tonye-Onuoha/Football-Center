@@ -93,6 +93,8 @@ Demo Credit uses the following technologies and tools:
 
 - [Django-Rest-Framework] (https://www.django-rest-framework.org/) - for building Web APIs
 
+-[React] (https://react.dev/) - JavaScript library for web and native user interfaces
+
 - [PostgreSQL] (https://www.postgresql.org/) - Database management system
 
 - [CSS] Cascading Style Sheets - For templates styling

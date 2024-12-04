@@ -3,8 +3,6 @@ from . import views
 
 
 urlpatterns = [
-	#path('posts/',views.CommentsList.as_view(),name='posts'),
-	#path('posts/<int:pk>/',views.CommentsDetail.as_view(),name='post-detail'),
     path('search/', views.search_filter, name='search'),
     path('user-profile/<int:id>/', views.user_profile, name='user-profile'),
     path('follow/', views.follow_user, name='follow-user'),

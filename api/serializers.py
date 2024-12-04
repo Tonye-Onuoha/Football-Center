@@ -1,16 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from football.models import Comments, Profiles
-
-
-class CommentsSerializer(serializers.ModelSerializer):
-	author = serializers.StringRelatedField(read_only=True)
-	
-	class Meta:
-		model = Comments
-		fields = ['id','post','author','date']
         
-        
+
 class ProfilesSerializer(serializers.ModelSerializer):
     
     class Meta:
