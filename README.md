@@ -109,7 +109,7 @@ Demo Credit uses the following technologies and tools:
 
 ## Contributors
 
-Here's the list of people who have contributed to Demo Credit:
+Here's the list of people who have contributed to Football Center:
 
 - Tonye Hugo Onuoha – [GitHub](https://github.com/Tonye-Onuoha)
 
