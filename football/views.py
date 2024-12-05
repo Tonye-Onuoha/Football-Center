@@ -100,15 +100,17 @@ def home(request):
 
     comments = Comments.objects.all()
     quotes = Quotes.objects.all()
-    posts = sorted(chain(comments, quotes), key=lambda data: data.date, reverse=True)[:50]
+    posts = sorted(chain(comments, quotes), key=lambda data: data.date, reverse=True)[
+        :50
+    ]
     notifications_count = Notifications.objects.filter(
         user=request.user, read=False
     ).count()
-    
+
     following = request.user.profile.followed_users.all()
-    
+
     sorted_posts = []
-    
+
     for post in posts:
         if isinstance(post, Comments) and following.contains(post.author):
             sorted_posts.append(post)
@@ -116,21 +118,21 @@ def home(request):
             sorted_posts.append(post)
         elif isinstance(post, Quotes) and following.contains(post.post.author):
             sorted_posts.append(post)
-            
+
     for other_post in posts:
         if other_post not in sorted_posts:
             sorted_posts.append(other_post)
-    
+
     # retrieve any new messages
     new_message = None
     storage = get_messages(request)
-    
+
     for message in storage:
         new_message = message
-      
+
     context = {
         "user": request.user,
-        "request":request,
+        "request": request,
         "message": new_message,
         "posts": sorted_posts,
         "team1": team1,
@@ -160,13 +162,12 @@ def home(request):
         "goal2": goal2,
         "team1_goalscorers": team1_goalscorers,
         "team2_goalscorers": team2_goalscorers,
-        "notifications_count": notifications_count
+        "notifications_count": notifications_count,
     }
-    
-    
+
     template = loader.get_template("home.html")
     response = HttpResponse(template.render(context))
-    response.set_cookie('request_user', str(request.user))
+    response.set_cookie("request_user", str(request.user))
     print(new_message)
     return response
 
@@ -296,7 +297,7 @@ def delete_post(request, pk):
             raise PermissionDenied
     else:
         context = {"post": post}
-        return render(request, "delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required
@@ -470,12 +471,12 @@ def notifications_view_all(request):
     context = {"notifications": notifications, "all": True}
     return render(request, "notifications.html", context)
 
+
 @login_required
 def followed_profiles(request, username):
     return render(request, "followed_profiles.html")
 
+
 @login_required
 def profile_followers(request, username):
     return render(request, "profile_followers.html")
-    
-    

@@ -8,7 +8,6 @@ from django.db.models.signals import post_save
 def create_profile(sender, instance, created, **kwargs):
     if created == True:
         Profiles.objects.create(user=instance)
-        print("New Profile Created")
 
 
 @receiver(post_save, sender=User)
@@ -16,7 +15,6 @@ def update_profile(sender, instance, created, **kwargs):
     if created == False or created == None:
         if hasattr(instance, "profile"):
             instance.profile.save()
-            print("User Profile Updated")
 
 
 @receiver(post_save, sender=Replies)
