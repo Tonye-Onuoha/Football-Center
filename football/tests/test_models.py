@@ -115,9 +115,9 @@ class QuotesModelTest(TestCase):
         user_2 = User.objects.create_user(
             username="jane", email="janedoe@gmail.com", password="sBQl6fk085"
         )
-        comment = Comments.objects.create(post="This is a new post", author=user_1)
+        post = Comments.objects.create(post="This is a new post", author=user_1)
         Quotes.objects.create(
-            quote="I just quoted your post", post=comment, user=user_2
+            quote="I just quoted your post", post=post, user=user_2
         )
 
     def test_quote_label(self):

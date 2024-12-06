@@ -5,6 +5,10 @@
 
 Thanks for checking out the Football Center web-application.
 
+### Screenshot
+
+![Screenshot](./FOOTBALL_CENTER_SCREENSHOT.png)
+
 
 **Table of Contents**
 - [Project Description / Implementation-Details](#project-description**implementation-details**)
