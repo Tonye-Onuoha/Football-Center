@@ -5,6 +5,7 @@ from PIL import Image
 
 # Create your models here.
 class Comments(models.Model):
+    """Model representing all the comments/posts."""
     post = models.TextField(help_text="Enter a post.", blank=False)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, verbose_name="Author"
@@ -20,6 +21,7 @@ class Comments(models.Model):
 
 
 class Replies(models.Model):
+    """Model representing all the replies of a comment/post."""
     reply = models.TextField(help_text="Enter a comment.", max_length=200)
     comment = models.ForeignKey(
         Comments, on_delete=models.CASCADE, blank=True, null=True
@@ -40,6 +42,7 @@ class Replies(models.Model):
 
 
 class Quotes(models.Model):
+    """Model representing all the quotes of a comment/post."""
     quote = models.TextField(help_text="Quote this post.", max_length=150, blank=False)
     post = models.ForeignKey(Comments, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,6 +60,7 @@ class Quotes(models.Model):
 
 
 class Profiles(models.Model):
+    """Model representing the profiles of all users."""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     image = models.ImageField(default="avatar.png", upload_to="profile_pics/")
     bio = models.TextField(
@@ -84,6 +88,7 @@ class Profiles(models.Model):
 
 
 class Notifications(models.Model):
+    """Model representing the notifications of all users."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reply = models.ForeignKey(Replies, on_delete=models.CASCADE, blank=True, null=True)
     quote = models.ForeignKey(Quotes, on_delete=models.CASCADE, blank=True, null=True)
@@ -103,6 +108,7 @@ class Notifications(models.Model):
 
 
 class League(models.Model):
+    """Model representing the top football leagues."""
     name = models.CharField(max_length=25, unique=True, null=False)
     country = models.CharField(max_length=30)
     description = models.TextField(null=True, blank=True)
@@ -121,6 +127,7 @@ class League(models.Model):
 
 
 class Club(models.Model):
+    """Model representing the football teams/clubs."""
     name = models.CharField(max_length=25, unique=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE)
     description = models.TextField(
@@ -140,6 +147,7 @@ class Club(models.Model):
 
 
 class Players(models.Model):
+    """Model representing the players of the football teams/clubs."""
     name = models.CharField(help_text="Enter player name.", max_length=30)
     club = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(

@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from .forms import (
     RegisterForm,
     PostForm,
-    PostModelForm,
+    PostModelEditForm,
     ProfileUpdateForm,
     ReplyPostForm,
     QuoteForm,
@@ -26,6 +26,9 @@ from itertools import chain
 # Create your views here.
 @login_required
 def home(request):
+    """
+    A view that returns the contents of the home page.
+    """
     # Random club matches
     league = League.objects.all()
     league_index = random.randint(0, 4)
@@ -173,6 +176,9 @@ def home(request):
 
 
 class TeamList(LoginRequiredMixin, ListView):
+    """
+    A view that returns the list of all football teams/clubs.
+    """
     model = Club
     context_object_name = "teams"
     template_name = "teams.html"
@@ -180,12 +186,18 @@ class TeamList(LoginRequiredMixin, ListView):
 
 @login_required
 def team_details(request, pk):
+    """
+    A view that returns the details of a particular team/club.
+    """
     club = Club.objects.get(id=pk)
     context = {"club": club}
     return render(request, "team_details.html", context)
 
 
 class PlayerList(LoginRequiredMixin, ListView):
+    """
+    A view that returns the list of football players.
+    """
     model = Club
     template_name = "players_list.html"
     context_object_name = "club_list"
@@ -193,12 +205,18 @@ class PlayerList(LoginRequiredMixin, ListView):
 
 
 class PlayerDetailView(DetailView):
+    """
+    A view that returns the details of a particular player.
+    """
     model = Players
     context_object_name = "player"
     template_name = "player_detail.html"
 
 
 class LeagueList(LoginRequiredMixin, ListView):
+    """
+    A view that returns a list of the top leagues.
+    """
     model = League
     context_object_name = "leagues"
     template_name = "leagues.html"
@@ -206,12 +224,18 @@ class LeagueList(LoginRequiredMixin, ListView):
 
 @login_required
 def league_details(request, pk):
+    """
+    A view that returns the details of a particular league.
+    """
     league = League.objects.get(id=pk)
     context = {"league": league}
     return render(request, "league_details.html", context)
 
 
 def register(request):
+    """
+    A view that returns a form for user registration and handles the form validation.
+    """
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -237,6 +261,9 @@ def register(request):
 
 @login_required
 def profile(request):
+    """
+    A view that returns a profile page with a form for profile updates.
+    """
     if request.method == "POST":
         user = get_object_or_404(User, id=request.user.id)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=user.profile)
@@ -252,6 +279,9 @@ def profile(request):
 
 @login_required
 def create_post(request):
+    """
+    A view that returns a form that enables users to create posts.
+    """
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -269,9 +299,12 @@ def create_post(request):
 
 @login_required
 def edit_post(request, pk):
+    """
+    A view that returns a form that enables users to edit posts.
+    """
     post = get_object_or_404(Comments, id=pk)
     if request.method == "POST":
-        form = PostModelForm(request.POST, instance=post)
+        form = PostModelEditForm(request.POST, instance=post)
         if form.is_valid():
             if request.user == post.author:
                 form.save()
@@ -287,6 +320,9 @@ def edit_post(request, pk):
 
 @login_required
 def delete_post(request, pk):
+    """
+    A view that enables users to delete posts.
+    """
     post = get_object_or_404(Comments, id=pk)
     if request.method == "POST":
         if request.user == post.author:
@@ -302,6 +338,9 @@ def delete_post(request, pk):
 
 @login_required
 def reply_post(request, id):
+    """
+    A view that returns a form that enables users to reply to posts.
+    """
     post = get_object_or_404(Comments, pk=id)
     if request.method == "POST":
         form = ReplyPostForm(request.POST)
@@ -319,6 +358,9 @@ def reply_post(request, id):
 
 @login_required
 def post_replies(request, id):
+    """
+    A view that returns a particular post and all its replies.
+    """
     post = Comments.objects.get(pk=id)
     post_replies = post.replies_set.all().order_by("-date")
     context = {"post": post, "post_replies": post_replies}
@@ -327,6 +369,9 @@ def post_replies(request, id):
 
 @login_required
 def post_reply_detail(request, id):
+    """
+    A view that returns the details of a particular reply.
+    """
     reply = get_object_or_404(Replies, pk=id)
     context = {"reply": reply}
     return render(request, "post_reply_detail.html", context)
@@ -334,6 +379,9 @@ def post_reply_detail(request, id):
 
 @login_required
 def reply_delete(request, id):
+    """
+    A view that enables users to delete their replies.
+    """
     reply = get_object_or_404(Replies, pk=id)
     if request.method == "POST":
         if reply.user == request.user:
@@ -349,6 +397,9 @@ def reply_delete(request, id):
 
 @login_required
 def quote_post(request, id):
+    """
+    A view that enables users to quote a post.
+    """
     post = get_object_or_404(Comments, pk=id)
     if request.method == "POST":
         form = QuoteForm(request.POST)
@@ -366,6 +417,9 @@ def quote_post(request, id):
 
 @login_required
 def quotes_view(request, id):
+    """
+    A view that enables users to view the quotes of a particular post.
+    """
     post = get_object_or_404(Comments, pk=id)
     context = {"post": post}
     return render(request, "post_quotes.html", context)
@@ -373,6 +427,9 @@ def quotes_view(request, id):
 
 @login_required
 def post_quote_detail(request, id):
+    """
+    A view that enables users to view the details of a particular quote.
+    """
     quote = get_object_or_404(Quotes, pk=id)
     context = {"quote": quote}
     return render(request, "post_quote_detail.html", context)
@@ -380,6 +437,9 @@ def post_quote_detail(request, id):
 
 @login_required
 def edit_quote(request, id):
+    """
+    A view that enables users to edit their quotes.
+    """
     instance = Quotes.objects.get(pk=id)
     if request.method == "POST":
         form = QuoteForm(request.POST)
@@ -403,6 +463,9 @@ def edit_quote(request, id):
 
 @login_required
 def delete_quote(request, id):
+    """
+    A view that enables users to delete a particular quote.
+    """
     quote = get_object_or_404(Quotes, pk=id)
     if request.method == "POST":
         if quote.user == request.user:
@@ -417,6 +480,9 @@ def delete_quote(request, id):
 
 @login_required
 def reply_quote(request, id):
+    """
+    A view that enables users to reply a particular quote.
+    """
     quote = get_object_or_404(Quotes, pk=id)
     if request.method == "POST":
         form = ReplyPostForm(request.POST)
@@ -433,6 +499,9 @@ def reply_quote(request, id):
 
 @login_required
 def quote_replies(request, id):
+    """
+    A view that enables users to view the replies of a particular quote.
+    """
     quote = get_object_or_404(Quotes, pk=id)
     quote_replies = quote.replies_set.all().order_by("-date")
     context = {"quote": quote, "quote_replies": quote_replies}
@@ -441,6 +510,9 @@ def quote_replies(request, id):
 
 @login_required
 def author_profile(request, id):
+    """
+    A view that enables users to view the profiles of other users.
+    """
     user = get_object_or_404(User, pk=id)
     author_posts = Comments.objects.filter(author=user).order_by("-date")
     author_replies = Replies.objects.filter(user=user).order_by("-date")
@@ -457,6 +529,9 @@ def author_profile(request, id):
 
 @login_required
 def notifications_view_new(request):
+    """
+    A view returns the latest notifications of a particular user.
+    """
     notifications = Notifications.objects.filter(user=request.user, read=False)
     for message in notifications:
         message.read = True
@@ -467,6 +542,9 @@ def notifications_view_new(request):
 
 @login_required
 def notifications_view_all(request):
+    """
+    A view that returns all the notifications of a particular user.
+    """
     notifications = Notifications.objects.filter(user=request.user).order_by("-date")
     context = {"notifications": notifications, "all": True}
     return render(request, "notifications.html", context)
@@ -474,9 +552,15 @@ def notifications_view_all(request):
 
 @login_required
 def followed_profiles(request, username):
+    """
+    A view that returns the users that a particular user follows.
+    """
     return render(request, "followed_profiles.html")
 
 
 @login_required
 def profile_followers(request, username):
+    """
+    A view that returns the followers of a particular user.
+    """
     return render(request, "profile_followers.html")
