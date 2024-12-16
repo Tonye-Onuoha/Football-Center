@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 class CommentsModelTest(TestCase):
+    """This subclass tests the model used for creating instances of a comment/post."""
     @classmethod
     def setUpTestData(cls):
         user = User.objects.create_user(
@@ -47,6 +48,7 @@ class CommentsModelTest(TestCase):
 
 
 class RepliesModelTest(TestCase):
+    """This subclass tests the model used for creating instances of a reply."""
     @classmethod
     def setUpTestData(cls):
         user_1 = User.objects.create_user(
@@ -107,6 +109,7 @@ class RepliesModelTest(TestCase):
 
 
 class QuotesModelTest(TestCase):
+    """This subclass tests the model used for creating instances of a quote."""
     @classmethod
     def setUpTestData(cls):
         user_1 = User.objects.create_user(
@@ -167,6 +170,7 @@ class QuotesModelTest(TestCase):
 
 
 class NotificationsModelTest1(TestCase):
+    """This subclass tests the model used for creating instances of a  reply notification."""
     @classmethod
     def setUpTestData(cls):
         user_1 = User.objects.create_user(
@@ -211,6 +215,7 @@ class NotificationsModelTest1(TestCase):
 
 
 class NotificationsModelTest2(TestCase):
+    """This subclass tests the model used for creating instances of a quote notification."""
     @classmethod
     def setUpTestData(cls):
         user_1 = User.objects.create_user(

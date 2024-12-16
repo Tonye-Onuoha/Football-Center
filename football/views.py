@@ -126,7 +126,7 @@ def home(request):
         if other_post not in sorted_posts:
             sorted_posts.append(other_post)
 
-    # retrieve any new messages
+    # Retrieve any new messages
     new_message = None
     storage = get_messages(request)
 
@@ -313,7 +313,7 @@ def edit_post(request, pk):
             else:
                 raise PermissionDenied
     else:
-        form = PostModelForm(instance=post)
+        form = PostModelEditForm(instance=post)
     context = {"form": form}
     return render(request, "edit.html", context)
 

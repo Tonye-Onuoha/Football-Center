@@ -24,35 +24,53 @@ class RegisterForm(UserCreationForm):
         
 class PostForm(forms.Form):
     """Form class used for creating new posts."""
-    post = forms.CharField(label="",widget=forms.Textarea())
 
-        
+    post = forms.CharField(
+        label="", help_text="Enter a new post.", widget=forms.Textarea()
+    )
+
+
 class PostModelEditForm(forms.ModelForm):
     """Form class used for editing posts."""
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        self.fields['post'].widget.attrs.update({'class':'post-model-form','placeholder':'Enter a post'})
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["post"].widget.attrs.update(
+            {"class": "post-model-form", "placeholder": "Enter a post"}
+        )
+
     class Meta:
         model = Comments
-        fields = ['post']
-        labels = {'post':''}
-        help_texts = {'post':''}
+        fields = ["post"]
+        labels = {"post": ""}
+        help_texts = {"post": ""}
 
 
 class ReplyPostForm(forms.Form):
     """Form class used for post replies."""
-    reply = forms.CharField(label='',help_text='Enter a reply',max_length=150,widget=forms.Textarea())
 
-    
+    reply = forms.CharField(
+        label="", help_text="Enter a reply.", max_length=150, widget=forms.Textarea()
+    )
+
+
 class QuoteForm(forms.Form):
     """Form class used to quote posts."""
-    quote = forms.CharField(label='',help_text='Enter a quote',max_length=150,widget=forms.Textarea())
+
+    quote = forms.CharField(
+        label="", help_text="Enter a quote.", max_length=150, widget=forms.Textarea()
+    )
 
 
 class ProfileUpdateForm(forms.ModelForm):
     """Form class used for profile updates."""
+
     class Meta:
         model = Profiles
-        fields = ['bio','image']
-        help_texts = {'bio':_('Tell us about yourself'),}
-        widgets = {'bio': forms.Textarea(attrs={'placeholder':'Tell us about yourself here.'})}
+        fields = ["bio", "image"]
+        help_texts = {
+            "bio": _("Tell us about yourself"),
+        }
+        widgets = {
+            "bio": forms.Textarea(attrs={"placeholder": "Tell us about yourself here."})
+        }

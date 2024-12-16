@@ -5,6 +5,7 @@ from django.urls import reverse
 
 # Create your tests here.
 class RegisterViewTest(TestCase):
+    """This subclass tests the view responsible for handling the user-registration."""
     def test_get_register_form(self):
         response = self.client.get(reverse("register"))
         self.assertEqual(response.status_code, 200)
@@ -30,6 +31,7 @@ class RegisterViewTest(TestCase):
 
 
 class CreatePostViewTest(TestCase):
+    """This subclass tests the view responsible for handling the creation of new comments/posts."""
     def setUp(self):
         self.user = User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="zGXn9dk143"
@@ -50,6 +52,7 @@ class CreatePostViewTest(TestCase):
 
 
 class EditPostViewTest(TestCase):
+    """This subclass tests the view responsible for handling post edits."""
     def setUp(self):
         self.user = User.objects.create_user(
             username="jane", email="janedoe@gmail.com", password="sBQl6fk085"
@@ -86,6 +89,7 @@ class EditPostViewTest(TestCase):
 
 
 class DeletePostViewTest(TestCase):
+    """This subclass tests the view responsible for handling the deletion of comments/posts."""
     def setUp(self):
         self.user = User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="zGXn9dk143"
@@ -107,6 +111,7 @@ class DeletePostViewTest(TestCase):
 
 
 class ReplyPostViewTest(TestCase):
+    """This subclass tests the view responsible for handling poat replies."""
     def setUp(self):
         user_1 = User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="zGXn9dk143"
@@ -136,6 +141,7 @@ class ReplyPostViewTest(TestCase):
 
 
 class QuotePostViewTest(TestCase):
+    """This subclass tests the view responsible for handling post quotes."""
     def setUp(self):
         user_1 = User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="zGXn9dk143"
@@ -165,6 +171,7 @@ class QuotePostViewTest(TestCase):
 
 
 class NotificationsViewTest(TestCase):
+    """This subclass tests the view responsible for handling users notifications."""
     @classmethod
     def setUpTestData(cls):
         user_1 = User.objects.create_user(
